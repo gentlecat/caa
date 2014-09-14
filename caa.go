@@ -12,6 +12,7 @@ package caa
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
 )
@@ -36,11 +37,13 @@ var (
 
 func getServerURL() string { return Scheme + "://" + Host }
 
-// GetRelease returns list of cover art images for release group with a specified MusicBrainz ID.
-func GetRelease(mbid string) ([]Image, error) {
-	resp, err := http.Get(getServerURL() + "/release/" + mbid)
+func getImages(url string) ([]Image, error) {
+	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
+	}
+	if resp.StatusCode != 200 {
+		return nil, errors.New("Failed to load images. Retuned status: " + resp.Status + ".")
 	}
 	body, err := ioutil.ReadAll(resp.Body)
 	resp.Body.Close()
@@ -59,4 +62,14 @@ func GetRelease(mbid string) ([]Image, error) {
 	}
 
 	return respParsed.Images, nil
+}
+
+// GetRelease returns list of cover art images for release with a specified MusicBrainz ID.
+func GetRelease(mbid string) ([]Image, error) {
+	return getImages(getServerURL() + "/release/" + mbid)
+}
+
+// GetReleaseGroup returns list of cover art images for release group with a specified MusicBrainz ID.
+func GetReleaseGroup(mbid string) ([]Image, error) {
+	return getImages(getServerURL() + "/release-group/" + mbid)
 }
