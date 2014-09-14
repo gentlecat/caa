@@ -1,13 +1,12 @@
-// go-caa is a client library for Cover Art Archive.
+// Package caa provides an easy way to access Cover Art Archive.
 /*
-Cover Art Archive (CAA) is a project whose goal is to make cover art images
+Cover Art Archive (CAA) is a project with a goal to make cover art images
 available to everyone on the Internet in an organized and convinient
 format. More informantion is available at https://coverartarchive.org/.
 
 There are two supported MusicBrainz ID (MBID) types for retrieval from CAA:
- * release
- * release group
-
+ - release
+ - release group
 */
 package caa
 
@@ -37,8 +36,7 @@ var (
 
 func getServerURL() string { return Scheme + "://" + Host }
 
-// GetRelease returns information about cover art image for a release group
-// with a specified MusicBrainz ID.
+// GetRelease returns list of cover art images for release group with a specified MusicBrainz ID.
 func GetRelease(mbid string) ([]Image, error) {
 	resp, err := http.Get(getServerURL() + "/release/" + mbid)
 	if err != nil {
