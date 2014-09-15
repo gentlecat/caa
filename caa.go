@@ -19,15 +19,15 @@ import (
 
 type Image struct {
 	ID             string   `json:"id"`
-	Image          string   `json:"image"`    // Full URL to the original image
+	Image          string   `json:"image"` // Full URL to the original image
+	Types          []string `json:"types"` // List of zero or more types for the image (https://musicbrainz.org/doc/Cover_Art/Types)
+	LargeThumbnail string   `json:"thumbnails.large"`
+	SmallThumbnail string   `json:"thumbnails.small"`
+	IsFront        bool     `json:"front"`
+	IsBack         bool     `json:"back"`
 	Approved       bool     `json:"approved"` // Whether the image was approved by the MusicBrainz edit system
 	Comment        string   `json:"comment"`  // A free text comment
 	Edit           int      `json:"edit"`     // Edit ID on MusicBrainz
-	LargeThumbnail string   `json:"thumbnails.large"`
-	SmallThumbnail string   `json:"thumbnails.small"`
-	Types          []string `json:"types"`
-	IsFront        bool     `json:"front"`
-	IsBack         bool     `json:"back"`
 }
 
 var (
