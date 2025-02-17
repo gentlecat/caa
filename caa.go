@@ -23,7 +23,7 @@ type thumbnails struct {
 }
 
 type Image struct {
-	ID         string     `json:"id"`
+	ID         int        `json:"id"`
 	Image      string     `json:"image"` // Full URL to the original image
 	Types      []string   `json:"types"` // List of zero or more types for the image (https://musicbrainz.org/doc/Cover_Art/Types)
 	IsFront    bool       `json:"front"`
@@ -35,7 +35,7 @@ type Image struct {
 }
 
 var (
-	Scheme = "http" // http or https
+	Scheme = "https" // http or https
 	Host   = "coverartarchive.org"
 )
 
